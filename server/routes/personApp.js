@@ -72,14 +72,23 @@ router.delete("/person/:id", async function (req, res, next) {
 
 router.delete("/deleteAll/", async function (req, res, next) {
   
-  Person.remove({}, function(err) { 
-    if (err){ 
-        console.log(err) 
-    }else{ 
-        console.log("Result :", result)  
-    } 
-}); 
-  
+  Person.remove({})
+  .then(data => {
+    if (!data) {
+      res.status(404).send({
+        message: `404 error`
+      });
+    } else {
+      res.send({
+        message: "person was deleted successfully!"
+      });
+    }
+  })
+  .catch(err => {
+    res.status(500).send({
+      message: "Could not delete person with id=" + id
+    });
+  });
 });
 
 module.exports = router;
