@@ -6,6 +6,8 @@ const cors = require('cors')
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 
+
+
 const config = require("./config/key");
 
 // const mongoose = require("mongoose");
@@ -37,6 +39,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // support parsing of application/json type post data
 app.use(bodyParser.json());
 app.use(cookieParser());
+
+var personRouter = require('./routes/personApp');
+app.use('/personApp',personRouter);
 
 app.use('/api/users', require('./routes/users'));
 
