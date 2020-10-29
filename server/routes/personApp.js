@@ -3,7 +3,7 @@ var express = require('express');
   var Person = require('../models/person');
   var User = require('../models/User');
 
-  var cors = require('cors')
+  
 
 
   
@@ -48,7 +48,7 @@ var express = require('express');
 
    
 
-   router.get('/person/:id',async function(req,res,next){ //see te person when you click marker on map!
+   router.get('/person/:id',async function(req,res,next){ 
       
     Person.findById({_id: req.params.id}, 
      
