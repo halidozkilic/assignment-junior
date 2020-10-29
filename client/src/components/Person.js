@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Badge, Table, Button } from "reactstrap";
-
-
-
-
+import axios from 'axios';
 
 function PersonPage() {
   const [hasError, setErrors] = useState(false);
   const [data, setData] = useState([]);
-
-  
- 
 
   useEffect(() => {
     async function fetchData() {
@@ -22,12 +16,34 @@ function PersonPage() {
     }
 
     fetchData();
-   
   });
 
- 
+  var deneme = false;
 
+  function editPerson() {
+    console.log();
+    deneme = false;
+  }
 
+  function deletePerson(id) {
+    console.log(id);
+    axios.delete(`http://localhost:5000/personApp/person/${id}`)
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+      })
+    
+  }
+
+  function deleteAll()
+  {
+    axios.delete(`http://localhost:5000/personApp/person/deleteAll}`)
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+      })
+
+  }
 
   return (
     <div className="container">
@@ -53,14 +69,9 @@ function PersonPage() {
               <td>{person.tc}</td>
               <td>{person.phone}</td>
               <td>
-               
-              <Button onClick={() => this.editPerson(person)}>
-                  edit
-                </Button>
+                <Button onClick={() => editPerson()}>edit</Button>
 
-                <Button onClick={() => this.deletePerson(person)}>
-                  delete
-                </Button>
+                <Button onClick={() => deletePerson(person._id)}>delete</Button>
               </td>
             </tr>
           ))}
