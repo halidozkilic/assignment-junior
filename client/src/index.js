@@ -2,6 +2,7 @@ import 'react-app-polyfill/ie9';
 import 'react-app-polyfill/ie11';
 import 'core-js';
 
+import 'alertifyjs/build/css/alertify.min.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import React from 'react';

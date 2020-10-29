@@ -91,4 +91,28 @@ router.delete("/deleteAll/", async function (req, res, next) {
   });
 });
 
+
+router.put('/person/edit/:id', function(req,res,next){  //USER INFO UPDATE 
+ 
+   Person.findOneAndUpdate({_id: req.params.id}, 
+     {    
+         $set:  { name:req.body.name,
+                  surname: req.body.surname,
+                  tc: req.body.tc,
+                  phone: req.body.phone }
+     },
+     {
+       upsert: true,
+       new:true
+     },
+     function(err,updatedPerson){
+       if(err){res.send("error");}
+       else { res.json(updatedPerson); }
+      }
+ 
+      );
+      
+ 
+ });
+
 module.exports = router;

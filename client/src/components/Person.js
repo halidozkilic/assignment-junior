@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Badge, Table, Button, Input, InputGroup } from "reactstrap";
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import alertify from "alertifyjs";
 
 function PersonPage() {
   const [hasError, setErrors] = useState(false);
@@ -13,11 +14,13 @@ function PersonPage() {
     e.target.reset();
     console.log(data);
 
-    
+    alertify.success( "added to table",2);
 
     axios.post("http://localhost:5000/personApp/person/",data)
     .then(res=>console.log(res))
     .catch(err=>console.log(err));
+
+   
 
     
   }; 
@@ -36,19 +39,22 @@ function PersonPage() {
 
   var deneme = false;
 
-  function editPerson() {
-    console.log();
+  function editPerson(person) {
+    console.log(person._id);
     deneme = false;
   }
 
-  function deletePerson(id) {
-    axios.delete(`http://localhost:5000/personApp/person/${id}`).then((res) => {
+  function deletePerson(person) {
+    alertify.error(person.name + " deleted from table", 2);
+    axios.delete(`http://localhost:5000/personApp/person/${person._id}`).then((res) => {
       console.log(res);
       console.log(res.data);
     });
   }
 
   function deleteAll() {
+    alertify.error(" All records deleted from table", 2);
+
     axios.delete(`http://localhost:5000/personApp/deleteAll/`).then((res) => {
       console.log(res);
       console.log(res.data);
@@ -86,10 +92,10 @@ function PersonPage() {
               <td>{person.tc}</td>
               <td>{person.phone}</td>
               <td>
-                <Button color="info" onClick={() => editPerson()}>
+                <Button color="info" onClick={() => editPerson(person)}>
                   edit
                 </Button>{" "}
-                <Button color="danger" onClick={() => deletePerson(person._id)}>
+                <Button color="danger" onClick={() => deletePerson(person)}>
                   delete
                 </Button>
               </td>
